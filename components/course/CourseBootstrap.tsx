@@ -148,13 +148,13 @@ export const CourseBootstrap: React.FC<CourseBootstrapProps> = ({ query }) => {
                     {course.catalogName}
                 </p>
             </section>
-            <section className="mx-auto flex max-w-[1200px] flex-col items-center mt-3 py-8">
+            <section className="mx-auto flex sm:max-w-[100%] max-w-[1200px] flex-col items-center mt-3 py-8">
                 {/* two cols, 1st col is 30%, 2nd is 70% */}
                 <div className="flex flex-row gap-10 w-[100%]">
-                    <div className="basis-1/4 space-y-3">
+                    <div className="basis-1/4 sm:basis-full space-y-3">
                         <CourseSidebar course={course} />
                     </div>
-                    <div className="basis-3/4 space-y-3">
+                    <div className="basis-3/4 sm:basis-full space-y-3">
                         <Tabs defaultValue="overview" className="w-[100%]">
                             <TabsList className="h-14 w-[100%] rounded-b-none">
                                 {

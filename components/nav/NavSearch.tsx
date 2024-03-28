@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { MdiIcon, css } from '~/util';
 
 import {
@@ -9,7 +9,7 @@ import {
     CommandInput,
     CommandItem,
     CommandList
-} from './ui/command';
+} from '../ui/command';
 
 import {
     mdiAccountTieHat,

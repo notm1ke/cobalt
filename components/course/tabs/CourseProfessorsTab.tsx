@@ -423,7 +423,7 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                     {/* two cols, on mobile only one */}
                                                     <div className="flex flex-1 flex-col justify-center">
                                                         <div className="flex flex-row gap-10 w-full">
-                                                            <div className="md:basis-1/2">
+                                                            <div className="md:basis-1/2 sm:basis-full">
                                                                 <span className="font-bold text-lg">Metrics</span>
                                                                 {
                                                                     (!record.report || !record.report.avgRating || isNaN(record.report.avgRating)) && (
@@ -467,7 +467,7 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                                     )
                                                                 }
                                                             </div>
-                                                            <div className="md:basis-1/2 sm:basis-2/2">
+                                                            <div className="hidden md:flex md:basis-1/2">
                                                                 <span className="font-bold text-lg">Teaching</span>
                                                                 <div className="mt-2">
                                                                     <ul className="list-none">

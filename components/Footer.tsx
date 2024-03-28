@@ -4,7 +4,7 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export const Footer: React.FC = () => (
     <footer className="md:px-8 py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 m:6-24 md:flex-row">
+        <div className="container flex-col items-center justify-between gap-4 m:6-24 md:flex-row md:flex hidden">
             <div className="font-mono text-center text-muted-background md:text-left">
                 <a href="https://www.ilefa.club" className="font-bold text-white">
                     ILEFA Labs
