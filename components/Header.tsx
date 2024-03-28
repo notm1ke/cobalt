@@ -9,7 +9,7 @@ export const Header: React.FC = () => (
       <div className="container mt-3 flex h-16 items-center space-x-4">
             <Navigation />
             <MobileNavigation />
-            <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end sm:hidden">
+            <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
                 <div className="w-full flex-1 md:w-auto md:flex-none">
                     <NavSearch />
                 </div>

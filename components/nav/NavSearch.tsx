@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { MdiIcon } from '~/util';
 import { Button } from '../ui/button';
-import { MdiIcon, css } from '~/util';
 
 import {
     CommandDialog,
@@ -274,7 +274,7 @@ export const NavSearch: React.FC = () => {
         <>
             <Button
                 variant="outline"
-                className={css("relative bg-gray-800 h-9 w-full justify-start rounded-[0.5rem] text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-72")}
+                className="relative bg-gray-800 h-9 w-full justify-start rounded-[0.5rem] text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-72"
                 onClick={() => setOpen(true)}
             >
                 <span className="hidden lg:inline-flex">Search for anything...</span>
@@ -290,7 +290,7 @@ export const NavSearch: React.FC = () => {
                     <CommandGroup heading="Pages">
                         {renderTestDataSegment('PAGES')}
                     </CommandGroup>
-                    <CommandGroup heading="Courses">
+                    {/* <CommandGroup heading="Courses">
                         {renderTestDataSegment('COURSES')}
                     </CommandGroup>
                     <CommandGroup heading="Buildings">
@@ -298,7 +298,7 @@ export const NavSearch: React.FC = () => {
                     </CommandGroup>
                     <CommandGroup heading="Rooms">
                         {renderTestDataSegment('ROOMS')}
-                    </CommandGroup>
+                    </CommandGroup> */}
                 </CommandList>
             </CommandDialog>
         </>
