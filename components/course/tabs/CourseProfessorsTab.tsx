@@ -253,8 +253,6 @@ export const ProfessorReviews: React.FC<{ ratings?: RmpGraphQlEdge<RmpRating> }>
         setPage(page - 1);
     }
 
-    console.log(items);
-
     return (
         <div>
             <ul className="list-none mb-5">
@@ -384,10 +382,10 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                     <Drawer key={i}>
                                         <DrawerTrigger asChild>
                                             <li className="p-[20px] bg-white flex mb-[10px] rounded-[10px] cursor-pointer hover:bg-gray-100">
-                                                <div className="text-[35px] w-[50px] h-[50px] mr-[30px] rounded-[50%] flex-shrink-0 ml-[-15px] pt-[0px]">
+                                                <div className="hidden md:inline text-[35px] w-[50px] h-[50px] mr-[30px] rounded-[50%] flex-shrink-0 ml-[-15px] pt-[0px]">
                                                     <MdiIcon path={MdiRepo[`mdiAlpha${record.name.at(0)}Circle`]} size="50px" className="text-blue-400 inline" />
                                                 </div>
-                                                <div className="flex flex-1 flex-col justify-center overflow-hidden pl-[20px] border-l-[1px] border-l-[#eee] border-solid text-gray-700">
+                                                <div className="flex flex-1 flex-col justify-center overflow-hidden md:pl-[20px] md:border-l-[1px] md:border-l-[#eee] md:border-solid text-gray-700">
                                                     <div className="flex flex-row gap-10 w-[100%]">
                                                         <p className="text-blue-400 font-semibold font-mono">{record.name}</p>
                                                     </div>
@@ -423,7 +421,7 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                     {/* two cols, on mobile only one */}
                                                     <div className="flex flex-1 flex-col justify-center">
                                                         <div className="flex flex-row gap-10 w-full">
-                                                            <div className="md:basis-1/2 sm:basis-full">
+                                                            <div className="md:w-1/2">
                                                                 <span className="font-bold text-lg">Metrics</span>
                                                                 {
                                                                     (!record.report || !record.report.avgRating || isNaN(record.report.avgRating)) && (
@@ -441,7 +439,7 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                                                 <span className="font-semibold">{record.report.numRatings}</span> ratings
                                                                                 {record.report.avgRating && <><br /><span className="font-semibold">{record.report.avgRating.toFixed(2)}</span> average rating</>}
                                                                                 {record.report.avgDifficultyRounded && <><br /><span className="font-semibold">{record.report.avgDifficultyRounded.toFixed(2)}</span> average difficulty</>}
-                                                                                {record.report.wouldTakeAgainPercent && <><br /><span className="font-semibold">{record.report.wouldTakeAgainPercent.toFixed(1)}%</span> would take again</>}
+                                                                                {record.report.wouldTakeAgainPercent && record.report.wouldTakeAgainPercent !== -1 && <><br /><span className="font-semibold">{record.report.wouldTakeAgainPercent.toFixed(1)}%</span> would take again</>}
                                                                             </p>
 
                                                                             <div className="mt-6">
@@ -467,7 +465,7 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                                     )
                                                                 }
                                                             </div>
-                                                            <div className="hidden md:flex md:basis-1/2">
+                                                            <div className="hidden md:inline md:w-1/2">
                                                                 <span className="font-bold text-lg">Teaching</span>
                                                                 <div className="mt-2">
                                                                     <ul className="list-none">

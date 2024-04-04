@@ -148,21 +148,20 @@ export const CourseBootstrap: React.FC<CourseBootstrapProps> = ({ query }) => {
                     {course.catalogName}
                 </p>
             </section>
-            <section className="mx-auto flex max-w-[1200px] flex-col items-center mt-3 py-8">
-                {/* two cols, 1st col is 30%, 2nd is 70% */}
-                <div className="flex flex-row gap-10 w-[100%]">
-                    <div className="md:basis-1/4 sm:basis-full space-y-3">
+            <section className="mx-auto flex flex-col items-center mt-3 py-8">
+                <div className="flex flex-col gap-10 w-full md:flex-row">
+                    <div className="md:w-1/4 sm:w-full space-y-3">
                         <CourseSidebar course={course} />
                     </div>
-                    <div className="md:basis-3/4 sm:basis-full space-y-3">
-                        <Tabs defaultValue="overview" className="w-[100%]">
-                            <TabsList className="h-14 w-[100%] rounded-b-none">
+                    <div className="md:w-3/4 sm:w-full space-y-3">
+                        <Tabs defaultValue="overview" className="w-full">
+                            <TabsList className="h-14 w-full rounded-b-none">
                                 {
                                     TabRegistry.map(tab => (
                                         <TabsTrigger key={tab.key} value={tab.key}>
                                             <div className="flex items-center space-x-2 mx-4 h-6">
                                                 {tab.icon}
-                                                <span>{tab.name}</span>
+                                                <span className="hidden md:inline">{tab.name}</span>
                                             </div>
                                         </TabsTrigger>
                                     ))

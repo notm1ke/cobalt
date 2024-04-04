@@ -59,8 +59,8 @@ export const CourseEquivTab: React.FC<CourseEquivTabProps> = ({ course }) => {
                         {
                             Object.keys(schools).map((school, i) => (
                                 <AccordionItem value={school} key={i} className="border-b-0">
-                                    <AccordionTrigger className="flex items-center justify-between w-full p-3 rounded-md">
-                                        <div className="text-lg font-bold">{school}</div>
+                                    <AccordionTrigger className="flex items-center justify-between w-full md:p-3 rounded-md">
+                                        <div className="text-xs md:text-lg font-bold">{school}</div>
                                     </AccordionTrigger>
                                     <AccordionContent>
                                         <ul>

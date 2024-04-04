@@ -13,6 +13,7 @@ export const MdiRepo = MdiIcons as Record<string, string>;
 export * from './buildings';
 export * from './course';
 export * from './icons';
+export * from './rec';
 export * from './types';
 export { MdiIcon };
 
@@ -174,4 +175,73 @@ export const joinWithAnd = (arr: any[], delimiter: string = ', ') => {
     if (arr.length === 2)
         return arr.join(' and ');
     return arr.slice(0, -1).join(delimiter) + ' and ' + arr.slice(-1);
+}
+
+/**
+ * Given a time like "9:00 PM", returns
+ * a date object containing the time,
+ * and optionally from a given initial
+ * date.
+ * 
+ * @param time the time to convert
+ * @param date the initial date (or now)
+ */
+export const getDateFromTime = (time: string, date = new Date()) => {
+    let offset = time.split(':')[0].length;
+    let hours = parseInt(time.substring(0, offset));
+    if (hours !== 12 && time.toLowerCase().includes('pm'))
+        hours += 12;
+
+    return new Date(date.getFullYear(),
+                    date.getMonth(),
+                    date.getDate(),
+                    hours,
+                    parseInt(time.substring(offset + 1, offset + 3)),
+                    0, 0);
+}
+
+/**
+ * Retrieves the formatted duration string
+ * for the given millis duration input.
+ * 
+ * @param time the time in milliseconds
+ */
+export const getLatestTimeValue = (time: number, top?: number) => {
+    let sec = Math.trunc(time / 1000) % 60;
+    let min = Math.trunc(time / 60000 % 60);
+    let hrs = Math.trunc(time / 3600000 % 24);
+    let days = Math.trunc(time / 86400000 % 30.4368);
+    let mon = Math.trunc(time / 2.6297424E9 % 12.0);
+    let yrs = Math.trunc(time / 3.15569088E10);
+
+    let y = `${yrs}y`;
+    let mo = `${mon}mo`;
+    let d = `${days}d`;
+    let h = `${hrs}h`;
+    let m = `${min}m`;
+    let s = `${sec}s`;
+
+    let result = '';
+    if (yrs !== 0) result += `${y}, `;
+    if (mon !== 0) result += `${mo}, `;
+    if (days !== 0) result += `${d}, `;
+    if (hrs !== 0) result += `${h}, `;
+    if (min !== 0) result += `${m}, `;
+    
+    result = result.substring(0, Math.max(0, result.length - 2));
+    if ((yrs !== 0 || mon !== 0 || days !== 0 || min !== 0 || hrs !== 0) && sec !== 0) {
+        result += ', ' + s;
+    }
+
+    if (yrs === 0 && mon === 0 && days === 0 && hrs === 0 && min === 0) {
+        result += s;
+    }
+
+    if (top) return result
+        .trim()
+        .split(', ')
+        .slice(0, top)
+        .join(', ');
+
+    return result.trim();
 }

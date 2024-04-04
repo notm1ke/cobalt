@@ -1,5 +1,5 @@
-import { MdiIcon, SessionNames, joinWithAnd } from '~/util';
 import { CompleteCoursePayload } from '@ilefa/husky';
+import { MdiIcon, SessionNames, joinWithAnd } from '~/util';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 import {
@@ -11,6 +11,7 @@ import {
     mdiFinance,
     mdiListStatus,
     mdiMedal,
+    mdiMonitor,
     mdiWeatherSunny
 } from '@mdi/js';
 
@@ -41,6 +42,17 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, value }) => (
 export const CourseOverviewTab: React.FC<CourseOverviewTabProps> = ({ course }) => (
     <Card className="bg-white text-gray-700 p-3 rounded-t-none">
         <CardContent className="mt-5 mb-2">
+            <div className="md:hidden mb-6">
+                <h2 className="text-lg text-red-400 font-bold font-mono mb-2">
+                    <MdiIcon path={mdiMonitor} size="21px" className="inline" />{" "}
+                    View on Desktop
+                </h2>
+
+                <p className="leading-relaxed">
+                    For the best experience, you should view this page on a desktop.
+                </p>
+            </div>
+
             {
                 course.sections.length === 0 && (
                     <div className="mb-6">
@@ -115,13 +127,13 @@ export const CourseOverviewTab: React.FC<CourseOverviewTabProps> = ({ course }) 
                 <p>{course.prerequisites}</p>
             </div>
 
-            <div className="mt-9">
+            <div className="hidden md:flex mt-6">
                 <h2 className="text-lg text-blue-400 font-bold font-mono mb-2">
                     <MdiIcon path={mdiFinance} size="21px" className="inline" />{" "}
                     Enrollment Metrics
                 </h2>
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-3">
+            <div className="hidden md:grid grid-cols-3 gap-4 mt-2">
                 <StatsCard
                     title="Currently Enrolled"
                     icon={<MdiIcon path={mdiAccountMultiple}
