@@ -1,8 +1,10 @@
 "use client";
 
 import { Navigation } from './nav/Nav';
+import { ClientOnly } from './ClientOnly';
 import { NavSearch } from './nav/NavSearch';
 import { MobileNavigation } from './nav/NavMobile';
+import { ExperimentControls } from './experiments/ExperimentControls';
 
 export const Header: React.FC = () => (
     <header className="top-3 z-40 w-full">
@@ -13,6 +15,10 @@ export const Header: React.FC = () => (
                 <div className="w-full flex-1 md:w-auto md:flex-none">
                     <NavSearch />
                 </div>
+                
+                <ClientOnly>
+                    <ExperimentControls />
+                </ClientOnly>
             </div>
         </div>
     </header>

@@ -2,6 +2,7 @@ import React from 'react';
 import MdiIcon from '@mdi/react';
 
 import { AnySite, ResolvableBuildingCode } from '.';
+import { DiningHallStatus, DiningHallType } from '@ilefa/blueplate';
 
 import {
     mdiAbacus,
@@ -103,7 +104,19 @@ import {
     mdiWaterPump,
     mdiWaves,
     mdiWeightLifter,
-    mdiWrench
+    mdiWrench,
+    mdiFish,
+    mdiPizza,
+    mdiPasta,
+    mdiHamburger,
+    mdiBlender,
+    mdiFoodSteak,
+    mdiRice,
+    mdiFoodOff,
+    mdiCoffee,
+    mdiBowlMix,
+    mdiWeatherNight,
+    mdiFoodForkDrink
 } from '@mdi/js';
 
 /**
@@ -367,5 +380,47 @@ export const getIconForCourse = (course: string, classes = '', size = 16) => {
         case "URBN": return <MdiIcon path={mdiCityVariant} className={classes} size={`${size}px`} />;
         case "WGSS": return <MdiIcon path={mdiHuman} className={classes} size={`${size}px`} />;
         default:     return <MdiIcon path={mdiGoogleClassroom} className={classes} size={`${size}px`} />;
+    }
+}
+
+/**
+ * Returns the specialized icon for a given dining hall type, if it has one.
+ * 
+ * @param hall the dining hall type to get the icon for
+ * @param classes [optional] the classes to add to the icon
+ * @param size    [optional] the size of the icon
+ */
+export const getIconForDiningHall = (hall: keyof typeof DiningHallType, classes = '', size = 16) => {
+    switch (hall) {
+        case 'BUCKLEY': return <MdiIcon path={mdiFish} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'MCMAHON': return <MdiIcon path={mdiPizza} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'NORTH': return <MdiIcon path={mdiPasta} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'NORTHWEST': return <MdiIcon path={mdiHamburger} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'PUTNAM': return <MdiIcon path={mdiBlender} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'SOUTH': return <MdiIcon path={mdiFoodSteak} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'TOWERS': return <MdiIcon path={mdiFood} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'WHITNEY': return <MdiIcon path={mdiRice} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        default: return <MdiIcon path={mdiFood} className={`fa-fw ${classes}`} size={`${size}px`} />;
+    }
+}
+
+/**
+ * Returns the specialized icon for a given dining hall status type, if it has one.
+ * 
+ * @param hall the dining hall type to get the icon for
+ * @param classes [optional] the classes to add to the icon
+ * @param size    [optional] the size of the icon
+ */
+export const getIconForDiningStatus = (status: keyof typeof DiningHallStatus, classes = '', size = 16) => {
+    switch (status.toUpperCase().replace(/\s/g, '_')) {
+        case 'BETWEEN_MEALS':
+        case 'CLOSED':
+            return <MdiIcon path={mdiFoodOff} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'BREAKFAST': return <MdiIcon path={mdiCoffee} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'BRUNCH': return <MdiIcon path={mdiBowlMix} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'DINNER': return <MdiIcon path={mdiFoodSteak} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'LATE_NIGHT': return <MdiIcon path={mdiWeatherNight} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case 'LUNCH': return <MdiIcon path={mdiFoodForkDrink} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        default: <MdiIcon path={mdiFoodOff} className={`fa-fw ${classes}`} size={`${size}px`} />;
     }
 }

@@ -59,7 +59,7 @@ export const RecInsights: React.FC<RecInsightsProps> = ({ avgs }) => {
                     }
 
                     {
-                        !estimatedPeaks && (
+                        (!estimatedPeaks || !estimatedPeaks.length) && (
                             <p className="text-gray-400">No estimated peaks</p>
                         )
                     }

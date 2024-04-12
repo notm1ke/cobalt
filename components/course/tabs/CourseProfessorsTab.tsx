@@ -487,9 +487,9 @@ export const CourseProfessorsTab: React.FC<CourseProfessorsTabProps> = ({ course
                                                                             <TooltipProvider>
                                                                                 <Tooltip>
                                                                                     <TooltipTrigger asChild>
-                                                                                    <span className="font-mono text-sm">
-                                                                                        +{record.sections.filter(section => filterSections(section, false)).length} more
-                                                                                    </span>
+                                                                                        <span className="font-mono text-sm">
+                                                                                            +{record.sections.filter(section => filterSections(section, false)).length} more
+                                                                                        </span>
                                                                                     </TooltipTrigger>
                                                                                     <TooltipContent>
                                                                                         {coalesceConsecutive(record.sections.filter(section => filterSections(section, false)).map(({ section }) => section)).join(', ')}

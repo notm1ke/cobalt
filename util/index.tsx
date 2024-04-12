@@ -67,6 +67,15 @@ export const picker = <In, Out = In>(params: PickerParam<In, Out>[]) => {
     }
 }
 
+export const safeJsonParse = <T,>(input?: string | null) => {
+    try {
+        if (!input) return null;
+        return JSON.parse(input) as T;
+    } catch (_err) {
+        return null;
+    }
+}
+
 export type MdiWrapperProps = IconProps & {
     path: keyof typeof MdiIcons;
     size?: number | string;

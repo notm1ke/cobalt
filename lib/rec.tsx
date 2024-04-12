@@ -1,8 +1,7 @@
 'use server';
 
+import { call } from '.';
 import { DaysOfWeek } from '~/util/rec';
-
-const url = (path: string) => process.env.FITPULSE_HOST + path;
 
 export type DailyStatsRecord = {
     date: string;
@@ -20,31 +19,33 @@ export type OccupantRecord = {
     count: number;
 }
 
+type RealtimeCountResponse = {
+    count: number;
+}
+
+type HistoricalStatsResponse<T = OccupantRecord> = {
+    data: T[];
+}
+
 export const getRealtimeCount = async (): Promise<number> =>
-    await fetch(url('/now'), {
-        method: 'POST',
-        next: { revalidate: 30 }
+    await call<RealtimeCountResponse>('POST', '/rec/now', {
+        method: 'POST'
     })
-    .then(res => res.json())
     .then(res => res.count)
     .catch(() => 0);
 
-export const getTodayStats = (): Promise<OccupantRecord[]> =>
-    fetch(url('/today'), {
+export const getTodayStats = async (): Promise<OccupantRecord[]> =>
+    await call<HistoricalStatsResponse>('POST' ,'/rec/today', {
         method: 'POST',
-        next: { revalidate: 60 }
     })
-    .then(res => res.json())
-    .then(res => res.data as OccupantRecord[])
+    .then(res => res.data)
     .catch(() => []);
 
 export const getTodayAverage = async (): Promise<OccupantRecord[]> =>
-    await fetch(url('/today/avg'), {
+    await call<HistoricalStatsResponse>('POST', '/rec/today/avg', {
         method: 'POST',
-        next: { revalidate: 60 }
     })
-    .then(res => res.json())
-    .then(res => res.data as OccupantRecord[])
+    .then(res => res.data)
     .catch(() => []);
 
 export const getDailyStats = async (
@@ -55,24 +56,15 @@ export const getDailyStats = async (
     let start = startDate?.format('YYYY-MM-DD') ?? undefined;
     let payload = { day, start };
 
-    return await fetch(url('/history/daily'), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+    return await call<HistoricalStatsResponse<DailyStatsRecord>>('POST', '/rec/history/daily', {
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-        next: { revalidate: 60 }
     })
-    .then(res => res.json())
-    .then(res => res.data as DailyStatsRecord[])
+    .then(res => res.data)
     .catch(() => []);
 }
 
 export const getWeeklyStats = async () => 
-    await fetch(url('/history/weekly'), {
-        method: 'POST',
-        next: { revalidate: 60 }
-    })
-    .then(res => res.json())
-    .then(res => res.data as WeeklyStatsRecord[])
-    .catch(() => []);
+    await call<HistoricalStatsResponse<WeeklyStatsRecord>>('POST', '/rec/history/weekly', {})
+        .then(res => res.data)
+        .catch(() => []);

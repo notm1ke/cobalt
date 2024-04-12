@@ -1,24 +1,18 @@
 'use client';
 
-import moment from 'moment';
-
 import { useEffect, useState } from 'react';
 import { RecHours } from './sidebar/RecHours';
 import { RecInsights } from './sidebar/RecInsights';
 import { RecLiveCount } from './sidebar/RecLiveCount';
 import { RecClosingTime } from './sidebar/RecClosingTime';
-import { RecLiveVsAvgChart } from './sidebar/charts/RecLiveVsAvgChart';
-import { DailyStatsRecord, OccupantRecord, getDailyStats, getTodayAverage } from '~/lib/rec';
+import { OccupantRecord, getTodayAverage } from '~/lib/rec';
+import { RecLiveVsAvgChart } from './charts/RecLiveVsAvgChart';
 
 export const RecBootstrap: React.FC = () => {
     const [avgs, setAvgs] = useState<OccupantRecord[]>();
-    const [daily, setDaily] = useState<DailyStatsRecord[]>();
 
     useEffect(() => {
         getTodayAverage().then(setAvgs);
-
-        let day = moment().format('dddd');
-        getDailyStats(day as any).then(setDaily);
     }, []);
 
     return (
