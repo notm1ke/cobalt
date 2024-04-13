@@ -173,7 +173,12 @@ const DiningHallsGrid: React.FC<{
                     {
                         until !== null && (
                             <span className="text-gray-500">
-                                {" "}until <span className="font-semibold">{until}</span>.
+                                {" "}until {
+                                    // detect if it is a time or a status indicator
+                                    /[0-9]*:[0-9]*\s(AM|PM)/.test(until!)
+                                        ? <span className="font-semibold">{until}</span>
+                                        : until
+                                }.
                             </span>
                         )
                     }

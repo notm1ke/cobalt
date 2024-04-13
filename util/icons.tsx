@@ -130,7 +130,6 @@ import {
     switch (building) {
         case "ABL": return <MdiIcon path={mdiSprout} className={classes} size={`${size}px`} />;
         case "ACS": return <MdiIcon path={mdiShape} className={classes} size={`${size}px`} />;
-        case "ACD": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "ACDS": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "ADC": return <MdiIcon path={mdiFountainPenTip} className={classes} size={`${size}px`} />;
         case "AES": return <MdiIcon path={mdiHammerWrench} className={classes} size={`${size}px`} />;
@@ -160,14 +159,10 @@ import {
         case "DWTN": return <MdiIcon path={mdiCityVariant} className={classes} size={`${size}px`} />;
         case "E2": return <MdiIcon path={mdiHammerWrench} className={classes} size={`${size}px`} />;
         case "ESB": return <MdiIcon path={mdiHammerWrench} className={classes} size={`${size}px`} />;
-        case "FG": return <MdiIcon path={mdiFlower} className={classes} size={`${size}px`} />;
         case "FLC": return <MdiIcon path={mdiFlower} className={classes} size={`${size}px`} />;
         case "FSB": return <MdiIcon path={mdiHumanMaleChild} className={classes} size={`${size}px`} />;
         case "GAMP": return <MdiIcon path={mdiStadiumVariant} className={classes} size={`${size}px`} />;
-        case "GANT": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
-        case "GC": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "GENT": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
-        case "GN": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "GP": return <MdiIcon path={mdiAtom} className={classes} size={`${size}px`} />;
         case "GRE": return <MdiIcon path={mdiTournament} className={classes} size={`${size}px`} />;
         case "GS": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
@@ -178,7 +173,6 @@ import {
         case "HBL": return <MdiIcon path={mdiLibrary} className={classes} size={`${size}px`} />;
         case "HDC": return <MdiIcon path={mdiHumanQueue} className={classes} size={`${size}px`} />;
         case "HEW": return <MdiIcon path={mdiPrescription} className={classes} size={`${size}px`} />;
-        case "HH": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "HJT": return <MdiIcon path={mdiDramaMasks} className={classes} size={`${size}px`} />;
         case "HPL": return <MdiIcon path={mdiLibrary} className={classes} size={`${size}px`} />;
         case "HSSW": return <MdiIcon path={mdiAccountMultiple} className={classes} size={`${size}px`} />;
@@ -194,7 +188,6 @@ import {
         case "KLIN": return <MdiIcon path={mdiSprout} className={classes} size={`${size}px`} />;
         case "KNS": return <MdiIcon path={mdiDna} className={classes} size={`${size}px`} />;
         case "LAFA": return <MdiIcon path={mdiHome} className={classes} size={`${size}px`} />;
-        case "LH": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "LSA": return <MdiIcon path={mdiDna} className={classes} size={`${size}px`} />;
         case "LOR": return <MdiIcon path={mdiHorse} className={classes} size={`${size}px`} />;
         case "LU1": return <MdiIcon path={mdiCow} className={classes} size={`${size}px`} />;
@@ -202,10 +195,8 @@ import {
         case "MAN": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "MCHU": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "MONT": return <MdiIcon path={mdiCalculatorVariant} className={classes} size={`${size}px`} />;
-        case "MSB": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "MUSB": return <MdiIcon path={mdiMusicNote} className={classes} size={`${size}px`} />;
         case "MLIB": return <MdiIcon path={mdiBookMusic} className={classes} size={`${size}px`} />;
-        case "OAK": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "PBB": return <MdiIcon path={mdiPrescription} className={classes} size={`${size}px`} />;
         case "PCSB": return <MdiIcon path={mdiHumanGreetingProximity} className={classes} size={`${size}px`} />;
         case "PR": return <MdiIcon path={mdiFood} className={classes} size={`${size}px`} />;
@@ -225,7 +216,6 @@ import {
         case "TAB": return <MdiIcon path={mdiLaptop} className={classes} size={`${size}px`} />;
         case "TLS": return <MdiIcon path={mdiDna} className={classes} size={`${size}px`} />;
         case "TSK": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
-        case "UTEB": return <MdiIcon path={mdiHammerWrench} className={classes} size={`${size}px`} />;
         case "VARC": return <MdiIcon path={mdiDraw} className={classes} size={`${size}px`} />;
         case "VDM": return <MdiIcon path={mdiMusicNote} className={classes} size={`${size}px`} />;
         case "WCB": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;

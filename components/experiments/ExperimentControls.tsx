@@ -47,7 +47,6 @@ const schema = z.object({
 })
 
 export const ExperimentControls: React.FC = () => {
-    const router = useRouter();
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: Object.fromEntries(Experiments.map(experiment => [

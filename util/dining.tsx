@@ -82,8 +82,13 @@ export const getTimeUntilReopened = (hall: DiningHallResponse) => {
         if (now.isAfter(openingTime)) {
             // find the next morning's breakfast
             let nextDay = (today + 1) % 7;
-            breakfast = schedule['BREAKFAST'].find(time => time.days.includes(nextDay));
-            openingTime = moment(breakfast?.start, 'HH:mm A');
+            let nextPhase = schedule['BREAKFAST'].find(time => time.days.includes(nextDay));
+            if (!nextPhase) nextPhase = schedule['BRUNCH'].find(time => time.days.includes(nextDay));
+            if (!nextPhase) nextPhase = schedule['LUNCH'].find(time => time.days.includes(nextDay));
+            if (!nextPhase) nextPhase = schedule['DINNER'].find(time => time.days.includes(nextDay));
+            if (!nextPhase) return 'after tomorrow';
+
+            openingTime = moment(nextPhase?.start, 'HH:mm A');
             return openingTime.format('h:mm A');
         }
 

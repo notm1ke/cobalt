@@ -1,0 +1,2 @@
+- fix building search action panel on mobile
+- fix building card grid on smaller screens not mobile

@@ -130,6 +130,15 @@ export const shortenName = (input: string, maxLen: number, trailingDot: boolean 
 }
 
 /**
+ * Capitalizes the first letter of all words in a string.
+ * @param input the input string
+ */
+export const capitalizeFirst = (input: string) => input
+    .split(' ')
+    .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+    .join(' ');
+
+/**
  * Replaces all occurances of a given
  * search string within another string.
  * 

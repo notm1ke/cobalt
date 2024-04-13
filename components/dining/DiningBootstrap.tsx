@@ -34,7 +34,7 @@ export const DiningBootstrap: React.FC = () => {
                         </p>
                     </ExperimentBoundary>
                 </section>
-                <section className="mx-auto flex flex-col items-center mt-3 py-8 pl-10">
+                <section className="mx-auto flex flex-col items-center mt-3 py-8">
                     <div className="flex flex-col gap-10 w-full md:flex-row">
                         {
                             !menus && (
