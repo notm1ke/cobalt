@@ -48,13 +48,13 @@ const roomTypeColor = (type: keyof typeof SeatingType) => {
 const signIndicator = (sign: SignEntry): JSX.Element => {
     let [current, next] = getCurrentAndNextEvents(sign);
     if (!current && !next?.length) return (
-        <span className="text-gray-500 text-sm font-mono">
+        <span className="text-gray-500 text-sm font-mono tracking-tighter">
             <MdiIcon path={mdiCalendarCheck} className="inline align-middle text-green-500" size="16px" /> No upcoming events.
         </span>
     );
 
     if (!current && next?.length) return (
-        <span className="text-orange-400 text-sm font-mono">
+        <span className="text-orange-400 text-sm font-mono tracking-tighter">
             <MdiIcon path={mdiClock} className="inline align-middle" size="16px" />{" "}
             <span className="font-semibold">{next[0].title}</span> starts in{" "}
             <span className="font-semibold">{getLatestTimeValue(next[0].startTime.getTime() - Date.now(), 2)}</span>.
@@ -62,7 +62,7 @@ const signIndicator = (sign: SignEntry): JSX.Element => {
     );
 
     if (current) return (
-        <span className="text-red-400 text-sm font-mono">
+        <span className="text-red-400 text-sm font-mono tracking-tighter">
             <MdiIcon path={mdiCalendarRemove} className="inline align-middle" size="16px" />{" "}
             <span className="font-semibold">{current!.title}</span> for next {moment(current!.endTime).fromNow()}
         </span>
