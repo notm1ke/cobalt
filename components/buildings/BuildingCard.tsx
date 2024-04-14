@@ -1,11 +1,13 @@
+import Link from 'next/link';
+
 import { Button } from '../ui/button';
-import { Building } from '~/lib/buildings';
+import { BuildingListing } from '~/lib/buildings';
 import { Card, CardContent } from '../ui/card';
 import { BuildingCode, MdiIcon, capitalizeFirst, getIconForBuilding } from '~/util';
 import { mdiFlag, mdiHumanMaleBoard, mdiInformationBox, mdiMapMarker } from '@mdi/js';
 
 export interface BuildingCardProps {
-    building: Building;
+    building: BuildingListing;
 }
 
 export const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => (
@@ -22,25 +24,31 @@ export const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => (
             <div className="flex space-x-2 mt-3">
                 {
                     building.statistics.classrooms > 0 && (
-                        <Button className="text-[14px] font-mono text-white" variant="secondary">
-                            <MdiIcon path={mdiHumanMaleBoard} size="18px" className="mr-2 align-text-top" />{" "}
-                            Classrooms ({building.statistics.classrooms})
+                        <Button asChild className="text-[14px] font-mono text-white" variant="secondary">
+                            <Link href={`/buildings/${building.code}`}>
+                                <MdiIcon path={mdiHumanMaleBoard} size="18px" className="mr-2 align-text-top" />{" "}
+                                Classrooms ({building.statistics.classrooms})
+                            </Link>
                         </Button>
                     )
                 }
 
                 {
                     building.statistics.classrooms === 0 && (
-                        <Button className="text-[14px] font-mono text-white" variant="secondary">
-                            <MdiIcon path={mdiInformationBox} size="18px" className="mr-2 align-text-top" />{" "}
-                            Info
+                        <Button asChild className="text-[14px] font-mono text-white" variant="secondary">
+                            <Link href={`/buildings/${building.code}`}>
+                                <MdiIcon path={mdiInformationBox} size="18px" className="mr-2 align-text-top" />{" "}
+                                Info
+                            </Link>
                         </Button>
                     )
                 }
 
-                <Button className="text-[14px] font-mono text-white" variant="secondary">
-                    <MdiIcon path={mdiMapMarker} size="18px" className="mr-2 align-text-top" />{" "}
-                    Maps
+                <Button asChild className="text-[14px] font-mono text-white" variant="secondary">
+                    <a href={building.maps} target="_blank" rel="noopener noreferrer">
+                        <MdiIcon path={mdiMapMarker} size="18px" className="mr-2 align-text-top" />{" "}
+                        Maps
+                    </a>
                 </Button>
             </div>
 

@@ -116,8 +116,12 @@ import {
     mdiCoffee,
     mdiBowlMix,
     mdiWeatherNight,
-    mdiFoodForkDrink
+    mdiFoodForkDrink,
+    mdiTheater,
+    mdiTableAccount,
+    mdiRun
 } from '@mdi/js';
+import { Classroom, SeatingType } from '@ilefa/husky';
 
 /**
  * Retrieves a specialized icon for a given building.
@@ -224,7 +228,6 @@ import {
         case "WH": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "WREC": return <MdiIcon path={mdiHumanMaleBoard} className={classes} size={`${size}px`} />;
         case "WSH": return <MdiIcon path={mdiHeart} className={classes} size={`${size}px`} />;
-        case "WSRH": return <MdiIcon path={mdiHome} className={classes} size={`${size}px`} />;
         case "WSRHA": return <MdiIcon path={mdiHome} className={classes} size={`${size}px`} />;
         case "WTBY": return <MdiIcon path={mdiCity} className={classes} size={`${size}px`} />;
         case "YNG": return <MdiIcon path={mdiSprout} className={classes} size={`${size}px`} />;
@@ -412,5 +415,34 @@ export const getIconForDiningStatus = (status: keyof typeof DiningHallStatus, cl
         case 'LATE_NIGHT': return <MdiIcon path={mdiWeatherNight} className={`fa-fw ${classes}`} size={`${size}px`} />;
         case 'LUNCH': return <MdiIcon path={mdiFoodForkDrink} className={`fa-fw ${classes}`} size={`${size}px`} />;
         default: <MdiIcon path={mdiFoodOff} className={`fa-fw ${classes}`} size={`${size}px`} />;
+    }
+}
+
+/**
+ * Returns the specialized icon for a given room, if it has one.
+ * 
+ * @param room the room to get the icon for
+ * @param classes [optional] the classes to add to the icon
+ * @param size    [optional] the size of the icon
+ */
+export const getIconForRoom = (room: Classroom, classes = '', size = 16) => {
+    if (!room || !room.seatingType)
+        return <MdiIcon path={mdiGoogleClassroom} className={`fa-fw ${classes}`} size={`${size}px`} />
+
+    switch (SeatingType[room.seatingType]) {
+        case SeatingType.TABLES:
+        case SeatingType.TABLES_AND_ARMCHAIRS:
+        case SeatingType.TABLET_ARMCHAIRS:
+        case SeatingType.FIXED_TABLES:
+        case SeatingType.FIXED_LEVELED_TABLES:
+            return <MdiIcon path={mdiHumanMaleBoard} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case SeatingType.FIXED_AUDITORIUM:
+            return <MdiIcon path={mdiTheater} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case SeatingType.LAB_TABLES:
+            return <MdiIcon path={mdiTableAccount} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        case SeatingType.ACTIVE:
+            return <MdiIcon path={mdiRun} className={`fa-fw ${classes}`} size={`${size}px`} />;
+        default:
+            return <MdiIcon path={mdiGoogleClassroom} className={`fa-fw ${classes}`} size={`${size}px`} />
     }
 }

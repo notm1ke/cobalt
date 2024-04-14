@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { BuildingCard } from './BuildingCard';
 import { Card, CardContent } from '../ui/card';
 import { Popover } from '@radix-ui/react-popover';
-import { Building, getBuildings } from '~/lib/buildings';
+import { BuildingListing, getBuildings } from '~/lib/buildings';
 import { PopoverContent, PopoverTrigger } from '../ui/popover';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { mdiAlert, mdiCloseCircle, mdiFlag, mdiTownHall } from '@mdi/js';
@@ -17,7 +17,7 @@ import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from '.
 type Filterable = {
     key: string;
     displayName: string;
-    filter: (building: Building) => boolean;
+    filter: (building: BuildingListing) => boolean;
 }
 
 const BuildingFilters: Filterable[] = [
@@ -117,11 +117,11 @@ const FilterSelector: React.FC<FilterSelectorProps> = ({
 )
 
 export const BuildingsBootstrap: React.FC = () => {
-    const [buildings, setBuildings] = useState<Building[]>([]);
+    const [buildings, setBuildings] = useState<BuildingListing[]>([]);
 
     // search
     const [query, setQuery] = useState<string>('');
-    const [filtered, setFiltered] = useState<Building[]>([]);
+    const [filtered, setFiltered] = useState<BuildingListing[]>([]);
 
     // filters
     const [campus, setCampus] = useState<string>('');

@@ -1,5 +1,5 @@
 import { getDateFromTime } from '.';
-import { OccupantRecord, WeeklyStatsRecord } from '~/lib/rec';
+import { OccupantRecord } from '~/lib/rec';
 
 export const DaysOfWeek = {
     Monday: 0,
@@ -22,7 +22,8 @@ export enum RecFacility {
     AQUATIC = 'Aquatic Center',
     CLIMB = 'Climbing Center',
     ADV = 'Adventure Center',
-    ADMIN = 'Admin Offices'
+    ADMIN = 'Admin Offices',
+    MANGO = 'Mango'
 }
 
 const Weekdays = [1, 2, 3, 4, 5];
@@ -52,6 +53,11 @@ export const StandardRecHours: Record<keyof typeof RecFacility, RecHourEntry[]> 
     ],
     'ADMIN': [
         { start: '9:00am', end: '5:00pm', days: Weekdays }
+    ],
+    'MANGO': [
+        { start: '8:00am', end: '8:00pm', days: Weekdays.slice(0, 4) },
+        { start: '8:00am', end: '7:00pm', days: [5] },
+        { start: '11:00am', end: '4:30pm', days: Weekends }
     ]
 }
 

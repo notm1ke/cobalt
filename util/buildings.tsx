@@ -1,3 +1,6 @@
+import moment from 'moment';
+
+import { SignEntry, SignEvent } from '~/lib/sign';
 import { CampusType, Classroom } from '@ilefa/husky';
 
 export type ResolvableBuildingCode = keyof typeof BuildingCode;
@@ -620,3 +623,42 @@ export const detectSiteFromBuilding = (building: ResolvableBuildingCode): SiteOr
     Object
         .keys(Sites)
         .find(site => Sites[site as SiteKey].includes(building)) as SiteKey || 'unknown';
+
+export type CustomScheduleEntry = SignEvent & {
+    startTime: Date;
+    endTime: Date;
+}
+
+//                                  current                          next                               hasEvents
+export type CurrentAndNextEvents = [CustomScheduleEntry | undefined, CustomScheduleEntry[] | undefined, boolean];
+
+/**
+ * Returns the currenr and next events given
+ * a set of schedule entries.
+ * 
+ * @param schedule the schedule entries for the room
+ */
+export const getCurrentAndNextEvents = (sign?: SignEntry): CurrentAndNextEvents => {
+    if (!sign) return [undefined, undefined, false];
+
+    let events = sign
+        .items
+        .map(ent => {
+            // not standard timestamp #:## AM/PM - #:## AM/PM
+            if (!/[0-9]{1,2}:[0-9]{1,2}\s(AM|PM) - [0-9]{1,2}:[0-9]{1,2}\s(AM|PM)/.test(ent.content))
+                return;
+
+            let [start, end] = ent.content.split(' - ');
+            return {
+                ...ent,
+                startTime: moment(start, 'hh:mm A').toDate(),
+                endTime: moment(end, 'hh:mm A').toDate()
+            }
+        })
+        .filter(e => !!e) as CustomScheduleEntry[];
+
+    let current = events.find(e => e.startTime.getTime() <= Date.now() && e.endTime.getTime() >= Date.now());
+    let next = events.filter(e => e.startTime.getTime() > Date.now());
+
+    return [current, next, true];
+}

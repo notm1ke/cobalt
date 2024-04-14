@@ -28,25 +28,19 @@ type HistoricalStatsResponse<T = OccupantRecord> = {
 }
 
 export const getRealtimeCount = async (): Promise<number> =>
-    await call<RealtimeCountResponse>('POST', '/rec/now', {
-        method: 'POST'
-    })
-    .then(res => res.count)
-    .catch(() => 0);
+    await call<RealtimeCountResponse>('POST', '/rec/now')
+        .then(res => res.count)
+        .catch(() => 0);
 
 export const getTodayStats = async (): Promise<OccupantRecord[]> =>
-    await call<HistoricalStatsResponse>('POST' ,'/rec/today', {
-        method: 'POST',
-    })
-    .then(res => res.data)
-    .catch(() => []);
+    await call<HistoricalStatsResponse>('POST' ,'/rec/today')
+        .then(res => res.data)
+        .catch(() => []);
 
 export const getTodayAverage = async (): Promise<OccupantRecord[]> =>
-    await call<HistoricalStatsResponse>('POST', '/rec/today/avg', {
-        method: 'POST',
-    })
-    .then(res => res.data)
-    .catch(() => []);
+    await call<HistoricalStatsResponse>('POST', '/rec/today/avg')
+        .then(res => res.data)
+        .catch(() => []);
 
 export const getDailyStats = async (
     dayOfWeek: keyof typeof DaysOfWeek,
