@@ -2,10 +2,20 @@
 
 import { Button } from '../ui/button';
 import { RoomCard } from './RoomCard';
+import { SignEntry } from '~/lib/sign';
+import { Classroom } from '@ilefa/husky';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '~/components/ui/skeleton';
 import { Building, tryUnsafeResolve } from '~/lib/buildings';
-import { MdiIcon, ResolvableBuildingCode, capitalizeFirst, css, getIconForBuilding } from '~/util';
+
+import {
+    MdiIcon,
+    ResolvableBuildingCode,
+    capitalizeFirst,
+    css,
+    getCurrentAndNextEvents,
+    getIconForBuilding
+} from '~/util';
 
 import {
     mdiCalendarText,
@@ -33,7 +43,7 @@ type InspectorTab = {
 const Tabs = (building: Building): InspectorTab[] => ([
     {
         key: 'classrooms',
-        displayName: `Classrooms (${building.classrooms.length})`,
+        displayName: `Rooms (${building.classrooms.length})`,
         icon: mdiHumanMaleBoard
     },
     {
@@ -41,12 +51,34 @@ const Tabs = (building: Building): InspectorTab[] => ([
         displayName: 'Available Rooms',
         icon: mdiSofaSingle
     },
-    {
-        key: 'events',
-        displayName: 'Room Schedules',
-        icon: mdiCalendarText
-    }
-])
+    // {
+    //     key: 'events',
+    //     displayName: 'Room Schedules',
+    //     icon: mdiCalendarText
+    // }
+]);
+
+type RoomWithSign = {
+    room: Classroom;
+    sign: SignEntry;
+}
+
+const getAvailableRooms = (building: Building): RoomWithSign[] => {
+    let rooms = building.classrooms.map(room => ({
+        room,
+        sign: building.signs.find(s => s.title.replace('_', '').toLowerCase() === room.name.toLowerCase())
+    }));
+
+    return rooms.filter(r => {
+        if (!r.sign) return false;
+        let [current, _next] = getCurrentAndNextEvents(r.sign!);
+        return !current;
+    }) as RoomWithSign[];
+}
+
+const RoomScheduleTimeline: React.FC<{ building: Building }> = ({ building }) => {
+    return <></>;       
+}
 
 export const InspectorBootstrap: React.FC<InspectorBootstrapProps> = ({ query }) => {
     const [tab, setTab] = useState<string>('classrooms');
@@ -127,7 +159,7 @@ export const InspectorBootstrap: React.FC<InspectorBootstrapProps> = ({ query })
                                                 </a>
                                             </Button>
                                         </div>
-                                        <div className="text-right">
+                                        <div className="md:text-right">
                                             <span className="text-xl font-mono font-bold">
                                                 <MdiIcon path={mdiLink} size="26px" className="inline align-text-top" />{" "}
                                                 Quick Links
@@ -176,7 +208,7 @@ export const InspectorBootstrap: React.FC<InspectorBootstrapProps> = ({ query })
                                 </div>
                                 <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
                                     {
-                                        building!.classrooms.map((room, index) => (
+                                        tab === 'classrooms' && building!.classrooms.map((room, index) => (
                                             <RoomCard
                                                 key={index}
                                                 room={room}
@@ -190,6 +222,16 @@ export const InspectorBootstrap: React.FC<InspectorBootstrapProps> = ({ query })
                                                         )}
                                             />
                                         ))
+                                    }
+
+                                    {
+                                        tab === 'available' && getAvailableRooms(building!).map((room, i) => (
+                                            <RoomCard key={i} room={room.room} sign={room.sign} />
+                                        ))
+                                    }
+
+                                    {
+                                        tab === 'events' && <RoomScheduleTimeline building={building!} />
                                     }
                                 </div>
                             </div>

@@ -37,7 +37,6 @@ import {
     DialogHeader,
     DialogTrigger
 } from '../ui/dialog';
-import { useRouter } from 'next/navigation';
 
 const schema = z.object({
     ...Object.fromEntries(Experiments.map(experiment => [

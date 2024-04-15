@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { MdiIcon } from '~/util';
 import { Button } from '../ui/button';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { BuildingCode, MdiIcon, ResolvableBuildingCode, getIconForBuilding } from '~/util';
 
 import {
     CommandDialog,
@@ -12,34 +13,30 @@ import {
 } from '../ui/command';
 
 import {
-    mdiAccountTieHat,
     mdiBed,
     mdiBookEducation,
     mdiBookOpenPageVariant,
-    mdiCalendar,
-    mdiHammerWrench,
-    mdiHome,
+    mdiCalendar, mdiHome,
     mdiHumanMaleBoard,
     mdiLaptop,
-    mdiMonitor,
     mdiSilverwareForkKnife,
     mdiWeightLifter
 } from '@mdi/js';
 
-type TestDataEntry = {
+type DataEntry = {
     href: string;
     title: string;
     content: JSX.Element;
 }
 
-type TestDataType = {
-    PAGES: TestDataEntry[];
-    COURSES: TestDataEntry[];
-    BUILDINGS: TestDataEntry[];
-    ROOMS: TestDataEntry[];
+type DataType = {
+    PAGES: DataEntry[];
+    COURSES: DataEntry[];
+    BUILDINGS: DataEntry[];
+    ROOMS: DataEntry[];
 }
 
-const TestData: TestDataType = {
+const SearchData: DataType = {
     PAGES: [
         {
             title: 'Home',
@@ -161,53 +158,16 @@ const TestData: TestDataType = {
             )
         },
     ],
-    BUILDINGS: [
-        {
-            title: 'Austin',
-            href: '/buildings/aust',
-            content: (
-                <>
-                    <MdiIcon path={mdiHumanMaleBoard} size="21px" className="mr-2" /> Austin
-                </>
-            )
-        },
-        {
-            title: 'Business',
-            href: '/buildings/busn',
-            content: (
-                <>
-                    <MdiIcon path={mdiAccountTieHat} size="21px" className="mr-2" /> Business
-                </>
-            )
-        },
-        {
-            title: 'E2',
-            href: '/buildings/e2',
-            content: (
-                <>
-                    <MdiIcon path={mdiHammerWrench} size="21px" className="mr-2" /> Engineering II
-                </>
-            )
-        },
-        {
-            title: 'ITE',
-            href: '/buildings/ite',
-            content: (
-                <>
-                    <MdiIcon path={mdiMonitor} size="21px" className="mr-2" /> Info Tech Engr
-                </>
-            )
-        },
-        {
-            title: 'McHugh Hall',
-            href: '/buildings/hale',
-            content: (
-                <>
-                    <MdiIcon path={mdiHumanMaleBoard} size="21px" className="mr-2" /> McHugh Hall
-                </>
-            )
-        },
-    ],
+    BUILDINGS: Object.keys(BuildingCode).map(code => ({
+        title: BuildingCode[code as ResolvableBuildingCode],
+        href: `/buildings/${code}`,
+        content: (
+            <>
+                {getIconForBuilding(code as ResolvableBuildingCode, 'mr-2', 21)}{" "}
+                {BuildingCode[code as ResolvableBuildingCode]}
+            </>
+        )
+    })),
     ROOMS: [
         {
             title: 'Austin 101',
@@ -257,18 +217,39 @@ const TestData: TestDataType = {
     ]
 }
 
-const renderTestDataSegment = (segment: keyof TestDataType) => TestData[segment].map((entry, i) => (
+const renderDataGroup = (
+    segment: keyof DataType,
+    dispatch: (route: string) => void
+) => SearchData[segment].map((entry, i) => (
     <CommandItem
         key={entry.href}
         value={entry.title}
-        onSelect={() => {}}
+        onSelect={() => dispatch(entry.href)}
     >
         {entry.content}   
     </CommandItem>
 ))
 
 export const NavSearch: React.FC = () => {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
+
+    const dispatch = (href: string) => {
+        router.push(href);
+        setOpen(false);
+    }
+
+    useEffect(() => {
+        const down = (e: KeyboardEvent) => {
+            if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                setOpen(open => !open);
+            }
+        }
+
+        document.addEventListener('keydown', down);
+        return () => document.removeEventListener('keydown', down);
+    }, []);
 
     return (
         <>
@@ -288,15 +269,15 @@ export const NavSearch: React.FC = () => {
                 <CommandList>
                     <CommandEmpty>No results found</CommandEmpty>
                     <CommandGroup heading="Pages">
-                        {renderTestDataSegment('PAGES')}
+                        {renderDataGroup('PAGES', dispatch)}
                     </CommandGroup>
                     {/* <CommandGroup heading="Courses">
                         {renderTestDataSegment('COURSES')}
-                    </CommandGroup>
+                    </CommandGroup> */}
                     <CommandGroup heading="Buildings">
-                        {renderTestDataSegment('BUILDINGS')}
+                        {renderDataGroup('BUILDINGS', dispatch)}
                     </CommandGroup>
-                    <CommandGroup heading="Rooms">
+                    {/* <CommandGroup heading="Rooms">
                         {renderTestDataSegment('ROOMS')}
                     </CommandGroup> */}
                 </CommandList>
