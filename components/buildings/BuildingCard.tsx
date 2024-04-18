@@ -11,7 +11,7 @@ export interface BuildingCardProps {
 }
 
 export const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => (
-    <Card className="bg-white shadow-lg rounded-lg overflow-hidden min-w-[425px] max-w-[425px]">
+    <Card className="bg-white shadow-lg rounded-lg overflow-hidden min-w-[308px] md:min-w-[425px] md:max-w-[425px]">
         <div className="bg-blue-400 p-6 flex items-center justify-center">
             {getIconForBuilding(building.code as keyof typeof BuildingCode, '', 28)}
         </div>

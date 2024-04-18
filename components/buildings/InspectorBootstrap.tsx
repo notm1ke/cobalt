@@ -193,6 +193,7 @@ export const InspectorBootstrap: React.FC<InspectorBootstrapProps> = ({ query })
                                                 key={index}
                                                 onClick={() => setTab(t.key)}
                                                 className={css(
+                                                    'mb-2 md:mb-0',
                                                     `text-[14px] h-12 mr-3 font-mono`,
                                                     tab === t.key ? 'text-gray-700' : 'text-white',
                                                     tab === t.key ? 'hover:text-gray-600' : 'hover:text-gray-300',

@@ -259,7 +259,7 @@ export const NavSearch: React.FC = () => {
                 onClick={() => setOpen(true)}
             >
                 <span className="hidden lg:inline-flex">Search for anything...</span>
-                <span className="inline-flex lg:hidden">Search...</span>
+                <span className="inline-flex lg:hidden">Go...</span>
                 <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.4rem] hidden h-5 select-none items-center gap-1 rounded border bg-gray-900 px-1.5 font-mono text-[11px] font-medium opacity-100 sm:flex">
                     <span className="text-[16px]">⌘</span>K
                 </kbd>

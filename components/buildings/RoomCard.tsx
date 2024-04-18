@@ -21,7 +21,6 @@ import {
     ResolvableBuildingCode,
     css,
     getCurrentAndNextEvents,
-    getIconForBuilding,
     getIconForRoom,
     getLatestTimeValue,
     picker
@@ -93,7 +92,7 @@ const amenityIndicator = picker<boolean | undefined, JSX.Element>([
 ]);
 
 export const RoomCard: React.FC<RoomCardProps> = ({ room, sign }) => (
-    <Card className="bg-white shadow-lg rounded-lg overflow-hidden min-w-[400px] md:min-w-[308px] md:max-w-[308px]">
+    <Card className="bg-white shadow-lg rounded-lg overflow-hidden min-w-[308px] md:max-w-[308px]">
         <div className={css('p-6 flex items-center justify-center', roomTypeColor(room.seatingType))}>
             {getIconForRoom(room, '', 28)}
         </div>
@@ -105,9 +104,9 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, sign }) => (
                         {room.name.split(room.building.code)[1]}
                     </h3>
                 </DialogTrigger>
-                <DialogContent className="max-w-[500px] bg-white text-gray-700">
+                <DialogContent className="max-w-[400px] md:max-w-[500px] bg-white text-gray-700 rounded-lg">
                     <DialogHeader>
-                        <h3 className="text-lg font-mono font-bold tracking-tighter text-gray-700">
+                        <h3 className="text-lg font-mono font-bold tracking-tighter text-gray-700 text-start">
                             {getIconForRoom(room, 'inline align-text-top', 24)}{" "}
                             {BuildingCode[room.building.code as ResolvableBuildingCode]}{" "}
                             {room.name.split(room.building.code)[1]}
@@ -132,8 +131,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, sign }) => (
                         }
                     </DialogDescription>
 
-                    <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-                        <div className="mt-5">
+                    <div className="grid grid-cols-1 gap-5 md:gap-10 md:grid-cols-2">
+                        <div className="md:mt-5">
                             <h4 className="text-lg font-mono font-bold tracking-tighter text-gray-700">
                                 Room Information
                             </h4>
@@ -177,7 +176,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, sign }) => (
                             </ul>
                         </div>
 
-                        <div className="mt-5">
+                        <div className="md:mt-5">
                             <h4 className="text-lg font-mono font-bold tracking-tighter text-gray-700">
                                 Resources
                             </h4>
@@ -227,7 +226,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, sign }) => (
                         </div>
                     </div>
                     
-                    <div className="mt-5">
+                    <div className="mt-2 md:mt-5">
                         <h4 className="text-lg font-mono font-bold tracking-tighter text-gray-700">
                             Today&apos;s Events
                         </h4>

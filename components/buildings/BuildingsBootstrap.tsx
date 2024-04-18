@@ -66,10 +66,12 @@ const FilterSelector: React.FC<FilterSelectorProps> = ({
                 className="text-gray-700 h-[46px]"
             >
                 {icon}{" "}
-                {label}
+                <span className="hidden md:inline">
+                    {label}
+                </span>
                 
                 {
-                    !active && <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    !active && <CaretSortIcon className="md:ml-2 h-4 w-4 shrink-0 opacity-50" />
                 }
                 
                 {
