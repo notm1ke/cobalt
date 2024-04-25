@@ -180,7 +180,7 @@ const enrollmentIndicators = (section: SectionData) => (
                 </span>
             </TooltipTrigger>
             <TooltipContent>
-                <span className="">
+                <span>
                     <span className="font-bold">{section.enrollment.max}</span> seats
                     <br /><span className="font-bold">{section.enrollment.current}</span> enrolled
                     <br /><span className="font-bold">{section.enrollment.waitlist ?? 0}</span> waitlist spaces

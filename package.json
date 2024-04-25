@@ -11,6 +11,7 @@
     "dependencies": {
         "@hookform/resolvers": "^3.3.4",
         "@ilefa/blueplate": "^1.1.2",
+        "@ilefa/bluestudy": "^1.1.0",
         "@ilefa/bluetrade": "^1.2.0",
         "@ilefa/husky": "^1.6.2",
         "@mdi/js": "^7.4.47",

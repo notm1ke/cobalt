@@ -1,12 +1,14 @@
-import { MdiWrapper } from '~/util';
+'use client';
+
 import { buttonVariants } from './ui/button';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { ExperimentBoundary, ExperimentType } from '~/util/experiments';
 
 export const Footer: React.FC = () => (
     <footer className="md:px-8 py-6">
         <div className="container flex-col items-center justify-between gap-4 m:6-24 md:flex-row md:flex hidden">
             <div className="font-mono text-center text-muted-background md:text-left">
-                <a href="https://www.ilefa.club" className="font-bold text-white">
+                <a href="https://www.ilefa.club" className="font-bold text-white hover:text-white/60">
                     ILEFA Labs
                 </a>{" "} &copy; 2020-{new Date().getFullYear()}
                 <br />
@@ -16,9 +18,11 @@ export const Footer: React.FC = () => (
                     (6.0, no_commit_id, dev)
                 </span>
                 <br />
-                <span className="text-[0.8rem] text-red-600 font-bold">
-                    For internal use only - do not distribute or transmit.
-                </span>
+                <ExperimentBoundary experiment={ExperimentType.InternalWarning} treatment="true">
+                    <span className="text-[0.8rem] text-red-600 font-bold">
+                        For internal use only - do not distribute or transmit.
+                    </span>
+                </ExperimentBoundary>
             </div>
             <div className="flex gap-4">
                 <a

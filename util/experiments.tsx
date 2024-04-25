@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 
 export enum ExperimentType {
-    TestDiningFavorites = 'test_dining_favorites'
+    TestDiningFavorites = 'test_dining_favorites',
+    InternalWarning = 'internal_warning'
 }
 
 type ExperimentSetup = {
@@ -24,6 +25,17 @@ export const Experiments: ExperimentSetup[] = [
         displayName: 'Dining Favorites Test',
         description: 'Render the random favorites testing box below the dining page title.',
         constructionZone: true,
+        defaultState: 'false',
+        settings: [
+            { option: 'On', value: 'true' },
+            { option: 'Off', value: 'false' }
+        ]
+    },
+    {
+        type: ExperimentType.InternalWarning,
+        displayName: 'Internal Warning',
+        description: 'Render a distribution warning banner in the footer.',
+        constructionZone: false,
         defaultState: 'false',
         settings: [
             { option: 'On', value: 'true' },
