@@ -12,6 +12,7 @@ import {
     mdiCalendarMonth,
     mdiClock,
     mdiEmoticon,
+    mdiMagnify,
     mdiSquareRounded
 } from '@mdi/js';
 
@@ -83,26 +84,12 @@ const availabilityTooltipIndicator = picker<string, JSX.Element>([
     }
 ]);
 
-const availabilityGradient = picker<string, string>([
-    {
-        pick: 'available',
-        value: () => 'bg-gradient-to-br from-green-500 to-transparent bg-green-500/60'
-    },
-    {
-        pick: 'unavailable',
-        value: () => 'bg-gradient-to-br from-gray-300 to-transparent bg-gray-300/60'
-    }
-]);
-
 export const StudySpaceCard: React.FC<StudySpaceCardProps> = ({ space }) => (
     <div className="grid md:grid-cols-2 gap-0 w-full max-w-4xl mx-auto">
         <div>
             <img
                 alt={space.name}
-                className={css(
-                    'w-full h-full object-cover rounded-t-lg md:rounded-tr-none md:rounded-tl-lg md:rounded-l-lg',
-                    // availabilityGradient(space.availability[0].state)
-                )}
+                className="w-full h-full object-cover rounded-t-lg md:rounded-tr-none md:rounded-tl-lg md:rounded-l-lg"
                 width="600"
                 height="100%"
                 src={space.image ?? '#'}
@@ -111,6 +98,7 @@ export const StudySpaceCard: React.FC<StudySpaceCardProps> = ({ space }) => (
                     objectFit: "cover",
                 }}
             />
+            {/* use tw group:hover to render a magnifying glass icon centered in the image above */}
         </div>
         <div className="bg-white rounded-b-lg md:rounded-b-none md:rounded-br-lg md:rounded-r-lg">
             <div className="p-4 pb-0">

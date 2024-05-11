@@ -37,7 +37,7 @@ type SignStatsResponse = {
 export const getBuildings = async (
    withClassrooms = true,
 ): Promise<BuildingListing[]> => {
-   let signs = await call<SignStatsResponse>("GET", "/sign/stats")
+   let signs = await call<SignStatsResponse>('GET', '/sign/stats')
       .then((res) => res.stats)
       .catch(() => []);
 

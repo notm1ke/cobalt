@@ -128,6 +128,7 @@ const favoritesIndicator = (favorites: string[], menu: DiningHallResponse) => {
     let stations = menu.meals.flatMap(meal => meal.stations);
     let food = [...new Set(stations.flatMap(station => station.options))];
     let amount = food.filter(f => favorites.includes(f)).length;
+
     if (amount === 0) return (
         <span className="text-gray-500 mt-1">
             <MdiIcon path={mdiStarOffOutline} size="18px" className="inline align-sub mr-1 text-red-400" />
@@ -151,6 +152,8 @@ const DiningHallsGrid: React.FC<{
     let remaining = getRemainingTimeForPhase(hall);
     let until = getTimeUntilReopened(hall);
 
+    let closedNoFood = !hall.meals.length || hall.meals.every(meal => meal.stations.length === 0);
+
     return (
         <Card className="bg-white text-gray-700 p-3 border-none shadow-lg">
             <CardContent className="mt-5">
@@ -161,28 +164,40 @@ const DiningHallsGrid: React.FC<{
                     {DiningHallType[hall.type]}
                 </h2>
 
-                <p>
-                    {statusIndicator(hall.status)}
-                    {
-                        remaining !== null && (
-                            <span className="text-gray-500">
-                                {" "}for another <span className="font-semibold">{remaining}</span>.
-                            </span>
-                        )
-                    }
-                    {
-                        until !== null && (
-                            <span className="text-gray-500">
-                                {" "}until {
-                                    // detect if it is a time or a status indicator
-                                    /[0-9]*:[0-9]*\s(AM|PM)/.test(until!)
-                                        ? <span className="font-semibold">{until}</span>
-                                        : until
-                                }.
-                            </span>
-                        )
-                    }
-                </p>
+                {
+                    closedNoFood && (
+                        <p>
+                            {statusIndicator('CLOSED')}
+                        </p>
+                    )
+                }
+
+                {
+                    !closedNoFood && (
+                        <p>
+                            {statusIndicator(hall.status)}
+                            {
+                                remaining !== null && (
+                                    <span className="text-gray-500">
+                                        {" "}for another <span className="font-semibold">{remaining}</span>.
+                                    </span>
+                                )
+                            }
+                            {
+                                until !== null && (
+                                    <span className="text-gray-500">
+                                        {" "}until {
+                                            // detect if it is a time or a status indicator
+                                            /[0-9]*:[0-9]*\s(AM|PM)/.test(until!)
+                                                ? <span className="font-semibold">{until}</span>
+                                                : until
+                                        }.
+                                    </span>
+                                )
+                            }
+                        </p>
+                    )
+                }
 
                 <p>
                     {favoritesIndicator(favorites, hall)}
@@ -297,6 +312,10 @@ const TabTarget: React.FC<{
 
     let remaining = getRemainingTimeForPhase(target);
     let untilOpen = getTimeUntilReopened(target);
+    if (untilOpen === 'Invalid Date')
+        untilOpen = null;
+
+    let closedNoFood = !target.meals.length || target.meals.every(meal => meal.stations.length === 0);
 
     return (
         <Card className="bg-white text-gray-700 p-3 rounded-t-none">
@@ -346,19 +365,31 @@ const TabTarget: React.FC<{
                         </TooltipProvider>
                     </h2>
 
-                    <p>
-                        {statusIndicator(target.status)}{" "}
-                        {remaining !== null && (
-                            <span className="text-gray-500">
-                                for another <span className="font-semibold">{remaining}</span>.
-                            </span>
-                        )}
-                        {untilOpen !== null && (
-                            <span className="text-gray-500">
-                                until <span className="font-semibold">{untilOpen}</span>.
-                            </span>
-                        )}
-                    </p>
+                    {
+                        closedNoFood && (
+                            <p>
+                                {statusIndicator('CLOSED')}{" "}
+                            </p>
+                        )
+                    }
+
+                    {
+                        !closedNoFood && (
+                            <p>
+                                {statusIndicator(target.status)}{" "}
+                                {remaining !== null && (
+                                    <span className="text-gray-500">
+                                        for another <span className="font-semibold">{remaining}</span>.
+                                    </span>
+                                )}
+                                {untilOpen !== null && (
+                                    <span className="text-gray-500">
+                                        until <span className="font-semibold">{untilOpen}</span>.
+                                    </span>
+                                )}
+                            </p>
+                        )
+                    }
 
                     <p>
                         {favoritesIndicator(favorites, target)}
