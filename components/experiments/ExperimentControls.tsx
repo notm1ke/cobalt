@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { mdiBeaker, mdiLightningBolt } from '@mdi/js';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { ExperimentState, ExperimentType, Experiments } from '~/util/experiments';
+import { ExperimentState, ExperimentType, Experiments, isDevelopmentMode } from '~/util/experiments';
 
 import {
     Form,
@@ -80,6 +80,9 @@ export const ExperimentControls: React.FC = () => {
         if (typeof window !== 'undefined')
             location.reload();
     }
+
+    if (!isDevelopmentMode())
+        return <></>;
 
     return (
         <Dialog>
